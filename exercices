@@ -1,0 +1,110 @@
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     struct ListNode *next;
+ * };
+ */
+void deleteNode(struct ListNode* node) {
+    node->val=node->next->val;//copier vleur node next dans node
+    node->next=node->next->next;//node->next sort de la liste
+    
+}
+
+-----------------------------------------------------------------------------------------
+
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     struct ListNode *next;
+ * };
+ */
+
+
+struct ListNode* reverseList(struct ListNode* head){
+    struct ListNode* prev=NULL;
+    struct ListNode* curr=head;
+    struct ListNode* N=NULL;
+    while(curr != NULL){
+        N=curr->next;
+        curr->next=prev;
+        prev=curr;
+        curr=N;
+    }
+    
+    return prev;
+}
+
+
+-------------------------------------------------------------------------------------------------
+
+
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     struct ListNode *next;
+ * };
+ */
+
+
+struct ListNode* mergeTwoLists(struct ListNode* l1, struct ListNode* l2){
+    if(l1 == NULL)
+        return l2;
+    if(l2 == NULL)
+        return l1;
+struct ListNode* head=l1;
+    if(l1->val >= l2->val){
+            head=l2;
+            l2=l2->next;}
+            else
+                l1=l1->next;
+struct ListNode* curr=head;
+    while(l1 != NULL && l2 != NULL){
+       if(l1->val > l2->val){
+           curr->next=l2;
+           l2=l2->next;
+       }
+    else {curr->next=l1;
+    l1=l1->next;
+         }
+    curr=curr->next;
+    }
+     if(l1 == NULL)
+        curr->next=l2;
+        else
+            curr->next=l1;
+    
+    return head;
+}
+
+
+
+----------------------------------------------------------------------------------------------
+
+
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     struct TreeNode *left;
+ *     struct TreeNode *right;
+ * };
+ */
+
+
+int rangeSumBST(struct TreeNode* root, int low, int high){
+   if(root == NULL){
+       return 0;
+   }
+    if(root->val < low){
+        return rangeSumBST(root->right,low,high);
+    }
+        if(root->val > high){
+            return rangeSumBST(root->left,low,high);
+        }
+    
+    return root->val + rangeSumBST(root->right,low,high)+rangeSumBST(root->left,low,high); 
+
+}
